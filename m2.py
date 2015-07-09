@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import random
+import re
 
 class Markov(object):
     def __init__(self, story_file, order=2, letters = 0):
@@ -49,6 +50,12 @@ class Markov(object):
         return delim.join(generatedtext+currentkey)
 
 
-testing = Markov('text/pride.txt', 5, 1)
+testing = Markov('text/sherlock.txt', 3, 0)
 #print testing.model.items()[1:10]
-print testing.createStory(400)
+
+# Create A Paragraph.
+rt= testing.createStory(200)    # Generate text (rt = rawtxt)
+sl = re.split('([.?!])', rt);   # Split on punctuation (sl = sentencelist)
+paragraph = ''.join(sl[2:-1])   # ['fragment', '.', ..., 'fragment'] --> [...]
+
+print paragraph
